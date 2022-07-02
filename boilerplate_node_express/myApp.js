@@ -5,9 +5,10 @@ let app = express();
 console.log("Hello World")
 // console.log(process.env.MESSAGE_STYLE)
 
-// app.get('/', function(req, res) {
-//   res.send('Hello Express')
-// })
+// Send the message 'Hello Express' when navigating to /hello
+app.get('/hello', function(req, res) {
+  res.send('Hello Express')
+})
 
 let absolutePath = __dirname + "/views/index.html"
 
