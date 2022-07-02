@@ -8,5 +8,9 @@
   },
   "keywords": [],
   "author": "Bisrat Araya",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "mongodb": "~3.6.0",
+    "mongoose": "^5.13.14"
+  }
 }
