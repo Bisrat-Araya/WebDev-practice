@@ -4,7 +4,10 @@ const mongoose = require('mongoose')
 const mongo_uri = process.env.MONGO_URI
 mongoose.set('useNewUrlParser', true)
 mongoose.set('useUnifiedTopology', true)
-mongoose.connect(mongo_uri)//, { useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(mongo_uri)
+  .then(() => console.log("DB Connected"))
+  .catch((err) => console.log(err))
+//, { useNewUrlParser: true, useUnifiedTopology: true})
 
 let personSchema = new mongoose.Schema({
   name: {
@@ -18,19 +21,38 @@ let personSchema = new mongoose.Schema({
 let Person = mongoose.model('Person', personSchema);
 
 const createAndSavePerson = (done) => {
-  done(null /*, data*/);
+  let bisratAraya = new Person({
+    name: 'Bisrat',
+    age: 29,
+    favoriteFoods: ['Doro Wot', 'Firfir']
+  })
+
+  bisratAraya.save()
+    .then((docs) => done(null, docs))
+    .catch((err) => console.log(err))
+  // if (error) return done(error)
+  // done(null, data);
 };
 
 const createManyPeople = (arrayOfPeople, done) => {
-  done(null /*, data*/);
+  Person.create(arrayOfPeople, function(err, docs) {
+    if (err) return console.log(err)
+    done(null, docs);
+  })
 };
 
 const findPeopleByName = (personName, done) => {
-  done(null /*, data*/);
+  Person.find({name: personName}, function(err, docs) {
+    if (err) return console.log(err)
+    done(null, docs)
+  })
 };
 
 const findOneByFood = (food, done) => {
-  done(null /*, data*/);
+  Person.find({favoriteFoods: food}, function(err, docs) {
+    if (err) return console.log(err)
+    done(null, docs)
+  })
 };
 
 const findPersonById = (personId, done) => {
